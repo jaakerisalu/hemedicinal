@@ -1,0 +1,5 @@
+Django==1.7.1
+django-crispy-forms==1.4.0
+django_compressor==1.4
+# Needed if you use utils.hashmodels.ModelHashIdMixin
+hashids==1.0.1

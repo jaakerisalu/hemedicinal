@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                Drugs go here:
+                <table>
+                    <tr>
+                        <th>Nimi</th>
+                        <th>Kirjeldus</th>
+                        <th>Hind</th>
+                        <th>Tarnija</th>
+                    </tr>
+                    {% for drug in drugs %}
+                        <tr>
+                            <td>{{ drug.name }}</td>
+                            <td>{{ drug.description }}</td>
+                            <td>{{ drug.price }}</td>
+                            <td>{{ drug.supplier.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

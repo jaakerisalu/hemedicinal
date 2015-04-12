@@ -1,0 +1,18 @@
+syntax: re
+
+# Ignore everything in .idea but the project's .iml file and runConfigurations/ subdirectory
+^\.idea/(?!(hemedicinal\.iml$|runConfigurations))
+
+
+syntax: glob
+
+*.pyc
+.sass-cache/
+
+venv/
+
+hemedicinal/settings/local.py
+hemedicinal/db.sqlite3
+hemedicinal/assets/
+hemedicinal/media/
+hemedicinal/static/bower_components/
