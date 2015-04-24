@@ -4,13 +4,12 @@ from settings.base import *
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-# TODO: Add allowed hosts
-ALLOWED_HOSTS = ['']
+ALLOWED_HOSTS = ['52.17.213.78']
 
 # Static site url, used when we need absolute url but lack request object, e.g. in email sending.
 SITE_URL = 'http://TODO.com'
 
-EMAIL_HOST_PASSWORD = 'TODO (api key)'
+# EMAIL_HOST_PASSWORD = 'TODO (api key)'
 
 
 STATIC_URL = '/assets/'

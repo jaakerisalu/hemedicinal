@@ -16,3 +16,7 @@ class Drug(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Manufacturer(models.Model):
+    name = models.CharField('Tootja nimi', max_length=100)

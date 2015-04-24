@@ -70,7 +70,7 @@ def defaults():
 @task
 def live():
     defaults()
-    env.hosts = ['tg-dev']
+    env.hosts = ['52.17.213.78']
     env.tag = 'hemedicinal-live'
     env.service_name = "gunicorn-hemedicinal"
 
@@ -295,9 +295,9 @@ def setup_server():
     require('code_dir')
 
     # Clone code repository
-    hg_url = local('hg paths default', capture=True)
-    assert hg_url
-    sudo('hg clone %s %s' % (hg_url, env.code_dir))
+    # hg_url = local('hg paths default', capture=True)
+    # assert hg_url
+    # sudo('hg clone %s %s' % (hg_url, env.code_dir))
 
     # Create password for DB, secret key and the local settings
     db_password = generate_password()

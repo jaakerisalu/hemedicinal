@@ -41,6 +41,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('active', default=True)
     date_joined = models.DateTimeField('date joined', default=timezone.now)
 
+    PROFESSION_APOTHECARY = 1
+    PROFESSION_LOGISTIC = 2
+    PROFESSION_OWNER = 3
+    PROFESSION_CHOICES = (
+        (PROFESSION_APOTHECARY, 'Apteeker'),
+        (PROFESSION_LOGISTIC, 'Ravimihaldusjuht'),
+        (PROFESSION_OWNER, 'Omanik'),
+    )
+
+    profession = models.PositiveSmallIntegerField(choices=PROFESSION_CHOICES, default=PROFESSION_APOTHECARY, null=True,
+                                                  blank=True)
+
     USERNAME_FIELD = 'email'
 
     objects = UserManager()
