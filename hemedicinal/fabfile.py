@@ -192,6 +192,9 @@ def deploy(id=None, silent=False):
     if not revset:
         return
 
+    #Remove all pyc files from project
+    sudo('find . -name "*.pyc" -exec rm -rf {} \;')
+
     # See if we have any requirements changes
     requirements_changes = changed_files(revset, r' requirements/')
     if requirements_changes:
@@ -295,9 +298,9 @@ def setup_server():
     require('code_dir')
 
     # Clone code repository
-    # hg_url = local('hg paths default', capture=True)
-    # assert hg_url
-    # sudo('hg clone %s %s' % (hg_url, env.code_dir))
+    hg_url = local('hg paths default', capture=True)
+    assert hg_url
+    sudo('hg clone %s %s' % (hg_url, env.code_dir))
 
     # Create password for DB, secret key and the local settings
     db_password = generate_password()

@@ -34,12 +34,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('email address', max_length=254, unique=True)
-    name = models.CharField(max_length=255)
-
-    is_staff = models.BooleanField('staff status', default=False)
-    is_active = models.BooleanField('active', default=True)
-    date_joined = models.DateTimeField('date joined', default=timezone.now)
+    id_code = models.IntegerField('Isikukood')
+    address = models.CharField('Aadress', max_length=100)
+    first_name = models.CharField('Eesnimi', max_length=50)
+    last_name = models.CharField('Perekonnanimi', max_length=50)
+    phone = models.IntegerField('Telefoni nr')
+    email = models.EmailField('emaili aadress', max_length=254, unique=True)
 
     PROFESSION_APOTHECARY = 1
     PROFESSION_LOGISTIC = 2
@@ -52,6 +52,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     profession = models.PositiveSmallIntegerField(choices=PROFESSION_CHOICES, default=PROFESSION_APOTHECARY, null=True,
                                                   blank=True)
+
+    STATUS_ACTIVE = 1
+    STATUS_ON_HOLIDAY = 2
+    STATUS_INACTIVE = 3
+    STATUS_CHOICES = (
+        (STATUS_ACTIVE, 'Aktiivne'),
+        (STATUS_ON_HOLIDAY, 'Puhkusel'),
+        (STATUS_INACTIVE, 'Mitteaktiivne'),
+    )
+
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=STATUS_ACTIVE, null=True,
+                                              blank=True)
+
+    # Below is required by Django's UserAdmin
+    name = models.CharField(max_length=255)
+    is_staff = models.BooleanField('staff status', default=False)
+    is_active = models.BooleanField('active', default=True)
 
     USERNAME_FIELD = 'email'
 
