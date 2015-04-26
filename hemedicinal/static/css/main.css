@@ -1,3 +1,11 @@
 table {
   width: 100%;
 }
+
+.back {
+  margin-top: 20px;
+}
+
+.asteriskField {
+  display: none;
+}

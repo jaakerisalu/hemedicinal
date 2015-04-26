@@ -34,11 +34,11 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id_code = models.IntegerField('Isikukood')
-    address = models.CharField('Aadress', max_length=100)
-    first_name = models.CharField('Eesnimi', max_length=50)
-    last_name = models.CharField('Perekonnanimi', max_length=50)
-    phone = models.IntegerField('Telefoni nr')
+    id_code = models.IntegerField('Isikukood', null=True, blank=True)
+    address = models.CharField('Aadress', max_length=100, null=True, blank=True)
+    first_name = models.CharField('Eesnimi', max_length=50, null=True, blank=True)
+    last_name = models.CharField('Perekonnanimi', max_length=50, null=True, blank=True)
+    phone = models.IntegerField('Telefoni nr', null=True, blank=True)
     email = models.EmailField('emaili aadress', max_length=254, unique=True)
 
     PROFESSION_APOTHECARY = 1
@@ -69,13 +69,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_staff = models.BooleanField('staff status', default=False)
     is_active = models.BooleanField('active', default=True)
+    date_joined = models.DateTimeField('date joined', default=timezone.now)
 
     USERNAME_FIELD = 'email'
 
     objects = UserManager()
 
     def get_full_name(self):
-        return self.name
+        return self.first_name + " " + self.last_name
 
     def get_short_name(self):
         return self.name

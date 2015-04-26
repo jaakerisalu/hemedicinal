@@ -1,29 +1,57 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                Drugs go here:
-                <table>
-                    <tr>
-                        <th>Nimi</th>
-                        <th>Kirjeldus</th>
-                        <th>Hind</th>
-                        <th>Tarnija</th>
-                    </tr>
-                    {% for drug in drugs %}
-                        <tr>
-                            <td>{{ drug.name }}</td>
-                            <td>{{ drug.description }}</td>
-                            <td>{{ drug.price }}</td>
-                            <td>{{ drug.supplier.name }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
+            <div class="col-md-12 text-center">
+                {% if drug %}
+                    <h2>Sa valisid ravimi {{ drug.name }}</h2>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nimetus</th>
+                                        <th>Kirjeldus</th>
+                                        <th>Hind</th>
+                                        <th>Toimeaine</th>
+                                        <th>Tootja</th>
+                                        <th>Tarnija</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ drug.name }}</td>
+                                        <td>{{ drug.description }}</td>
+                                        <td>{{ drug.price }}</td>
+                                        <td>{{ drug.substance }}</td>
+                                        <td>{{ drug.manufacturer }}</td>
+                                        <td>{{ drug.supplier }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <a href="edit/?id={{ drug.id }}" class="btn btn-success">Muuda</a>
+                    <a href="/drug" class="btn btn-danger">Tagasi</a>
+
+                {% else %}
+                    <h2>Tere tulemast!</h2>
+                    {% crispy form %}
+                {% endif %}
             </div>
         </div>
     </div>
-
 {% endblock content %}
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-drugs").select2();
+        });
+    </script>
+{% endblock scripts %}

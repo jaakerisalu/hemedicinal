@@ -1383,7 +1383,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #fff;
+  background-color: #F6C3C3;
 }
 
 input,
@@ -2812,7 +2812,7 @@ caption {
 }
 
 th {
-  text-align: left;
+  text-align: center;
 }
 
 .table {
@@ -4875,11 +4875,11 @@ tbody.collapse.in {
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  background-color: #F39B9B;
+  border-color: #B74141;
 }
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #000;
 }
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
   color: #5e5e5e;

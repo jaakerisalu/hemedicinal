@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center">Ravim: {{ drug.name }}</h2>
+            <div class="col-md-3">Tootja: {{ drug.manufacturer }}</div>
+            <div class="col-md-3">Tarnija: {{ drug.supplier }}</div>
+            <div class="col-md-3">Toimeaine: {{ drug.substance }}</div>
+            <div class="col-md-3">Süsteemi lisas: {{ drug.creator.get_full_name }}</div>
+            <div class="col-md-12 text-center">
+                {% crispy form %}
+                <a href="/drug" class="btn btn-danger back">Tagasi</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".js-drugs").select2();
+        });
+    </script>
+{% endblock scripts %}

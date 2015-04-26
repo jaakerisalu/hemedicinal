@@ -149,7 +149,7 @@ ROOT_URLCONF = 'hemedicinal.urls'
 WSGI_APPLICATION = 'hemedicinal.wsgi.application'
 
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'drug'
 LOGIN_URL = 'login'
 
 
