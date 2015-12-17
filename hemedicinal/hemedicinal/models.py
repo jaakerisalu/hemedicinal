@@ -2,6 +2,9 @@ from django.db import models
 from accounts.models import User
 
 
+# PLEASE NOTE: EVERYTHING IN THIS FILE IS DEPRECATED, THE MODELS WERE CREATED MANUALLY &
+# WE COMMUNICATE WITH THE DATABASE USING RAW SQL FUNCTIONS...
+
 class Supplier(models.Model):
     STATUS_ACTIVE = 1
     STATUS_INACTIVE = 2
