@@ -32,41 +32,20 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
+class Tootaja(models.Model):
+    class Meta:
+        managed = False
+        db_table = 'tootaja'
+
+    tootaja_kood = models.AutoField(primary_key=True)
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id_code = models.IntegerField('Isikukood', null=True, blank=True, unique=True)
-    address = models.CharField('Aadress', max_length=100, null=True, blank=True)
-    first_name = models.CharField('Eesnimi', max_length=50, null=True, blank=True)
-    last_name = models.CharField('Perekonnanimi', max_length=50, null=True, blank=True)
-    phone = models.IntegerField('Telefoni nr', null=True, blank=True)
-    email = models.EmailField('emaili aadress', max_length=254, unique=True)
-
-    PROFESSION_APOTHECARY = 1
-    PROFESSION_LOGISTIC = 2
-    PROFESSION_OWNER = 3
-    PROFESSION_CHOICES = (
-        (PROFESSION_APOTHECARY, 'Apteeker'),
-        (PROFESSION_LOGISTIC, 'Ravimihaldusjuht'),
-        (PROFESSION_OWNER, 'Omanik'),
-    )
-
-    profession = models.PositiveSmallIntegerField(choices=PROFESSION_CHOICES, default=PROFESSION_APOTHECARY, null=True,
-                                                  blank=True)
-
-    STATUS_ACTIVE = 1
-    STATUS_ON_HOLIDAY = 2
-    STATUS_INACTIVE = 3
-    STATUS_CHOICES = (
-        (STATUS_ACTIVE, 'Aktiivne'),
-        (STATUS_ON_HOLIDAY, 'Puhkusel'),
-        (STATUS_INACTIVE, 'Mitteaktiivne'),
-    )
-
-    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=STATUS_ACTIVE, null=True,
-                                              blank=True)
+    # Blank and null because I shouldn't add a default here
+    tootaja = models.OneToOneField(Tootaja, blank=True, null=True)
 
     # Below is required by Django's UserAdmin
     name = models.CharField(max_length=255)
+    email = models.EmailField(blank=True, unique=True)
     is_staff = models.BooleanField('staff status', default=False)
     is_active = models.BooleanField('active', default=True)
     date_joined = models.DateTimeField('date joined', default=timezone.now)
@@ -80,3 +59,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.name
+
