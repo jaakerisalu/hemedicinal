@@ -7,8 +7,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': 'apex.ttu.ee',
         'NAME': 't135192',
-        'USER': 't135192',
-        'PASSWORD': '1kolekoll',
+        'USER': 'apteeker',
+        'PASSWORD': '1koleKoll666',
         'PORT': '7301'
     }
 }
