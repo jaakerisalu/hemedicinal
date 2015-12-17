@@ -6,7 +6,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': 'apex.ttu.ee',
-        'NAME': 'apex',
+        'NAME': 't135192',
         'USER': 't135192',
         'PASSWORD': '1kolekoll',
         'PORT': '7301'
