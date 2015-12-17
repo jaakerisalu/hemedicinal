@@ -1,8 +1,17 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML, Div, Field, Submit
 from django import forms
+from django.db import connection
 from django.forms import FloatField
 from hemedicinal.models import Drug
+
+def dictfetchall(cursor):
+    # Helper method to return all results as a dict
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
 
 
 class DrugSelectionForm(forms.ModelForm):
@@ -15,7 +24,14 @@ class DrugSelectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['drug'].choices = [(c.id, c.name + ",   Mõjuaine:     " + c.substance.name + "   [" + c.substance.atc_code + "] ") for c in Drug.objects.filter(status=Drug.STATUS_ACTIVE)]
+        # Get drug info
+        cursor = connection.cursor()
+
+        cursor.execute("SELECT * FROM ravimi_informatsioon")
+
+        res = dictfetchall(cursor)
+
+        self.fields['drug'].choices = [(drug['ravimi_kood'], drug['ravimi_nimetus'] + ",   Mõjuaine:     " + drug['ravimi_mojuaine'] + "   [" + drug['ravimi_mojuaine_atc_kood'] + "] ") for drug in res]
 
         self.helper = FormHelper()
         self.helper.add_input(Submit('save', "Edasi", css_class='btn btn-success btn-lg'))
@@ -29,13 +45,14 @@ class DrugSelectionForm(forms.ModelForm):
 class DrugEditForm(forms.ModelForm):
     class Meta:
         model = Drug
-        fields = ('description', 'price')
+        fields = ('status',)
 
-    price = FloatField(min_value=0.01, label='Ravimi hind')
+    status = forms.ChoiceField(label="Ravimi seisund")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.fields['status'].choices = [(1, "Aktiivne"), (2, "Mitteaktiivne")]
         self.helper = FormHelper()
         self.helper.add_input(Submit('save', "Salvesta", css_class='btn btn-success btn-lg'))
         self.helper.action = "."

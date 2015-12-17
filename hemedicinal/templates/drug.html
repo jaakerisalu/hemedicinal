@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 {% if drug %}
-                    <h2>Sa valisid ravimi {{ drug.name }}</h2>
+                    <h2>Sa valisid ravimi {{ drug.ravimi_nimetus }}</h2>
 
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -20,22 +20,24 @@
                                         <th>Toimeaine</th>
                                         <th>Tootja</th>
                                         <th>Tarnija</th>
+                                        <th>Seisund</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{{ drug.name }}</td>
-                                        <td>{{ drug.description }}</td>
-                                        <td>{{ drug.price }} &euro;</td>
-                                        <td>{{ drug.substance }}</td>
-                                        <td>{{ drug.manufacturer }}</td>
-                                        <td>{{ drug.supplier }}</td>
+                                        <td>{{ drug.ravimi_nimetus }}</td>
+                                        <td>{{ drug.ravimi_kirjeldus }}</td>
+                                        <td>{{ drug.ravimi_hind }} &euro;</td>
+                                        <td>{{ drug.ravimi_mojuaine }}</td>
+                                        <td>{{ drug.ravimi_tootja }}</td>
+                                        <td>{{ drug.ravimi_tarnija }}</td>
+                                        <td>{{ drug.ravimi_seisund }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <a href="edit/?id={{ drug.id }}" class="btn btn-success">Muuda</a>
+                    <a href="edit/?id={{ drug.ravimi_kood }}" class="btn btn-success">Muuda</a>
                     <a href="/drug" class="btn btn-danger">Tagasi</a>
 
                 {% else %}

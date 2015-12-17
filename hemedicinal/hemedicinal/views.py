@@ -1,13 +1,14 @@
 import json
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db import connection
 from django.forms import model_to_dict
 from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from accounts.models import User
-from hemedicinal.forms import DrugSelectionForm, DrugEditForm
+from hemedicinal.forms import DrugSelectionForm, DrugEditForm, dictfetchall
 from hemedicinal.models import Drug
 
 
@@ -26,7 +27,14 @@ class DrugView(ProtectedMixin, TemplateView):
 
         drug = None
         if form.is_valid():
-            drug = Drug.objects.get(id=form.cleaned_data['drug'])
+            # Get drug detailed info
+            cursor = connection.cursor()
+
+            cursor.execute("SELECT * FROM f_anna_ravim(%s)" % form.cleaned_data['drug'])
+
+            res = dictfetchall(cursor)
+
+            drug = res[0]
             form = None
 
         context = self.get_context_data(**kwargs)
@@ -46,9 +54,20 @@ class DrugEditView(ProtectedMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         form_was_posted = request.POST.get('save') is not None
+        drug_id = request.GET.get('id', None)
+        cursor = connection.cursor()
 
-        drug = Drug.objects.get(id=request.GET.get('id', ''))
-        form = DrugEditForm(request.POST if form_was_posted else None, instance=drug)
+        # Get drug detailed info
+        drug = None
+        if drug_id is not None:
+
+            cursor.execute("SELECT * FROM f_anna_ravim(%s)" % drug_id)
+
+            res = dictfetchall(cursor)
+
+            drug = res[0]
+
+        form = DrugEditForm(request.POST if form_was_posted else None,)
         context.update({
             'drug': drug,
             'form': form
@@ -56,7 +75,10 @@ class DrugEditView(ProtectedMixin, TemplateView):
 
         if form_was_posted:
             if form.is_valid():
-                drug = form.save()
+                if int(form.cleaned_data['status']) == 1:
+                    cursor.execute("SELECT f_aktiveeri_ravim('%s')" % drug['ravimi_nimetus'])
+                else:
+                    cursor.execute("SELECT f_deaktiveeri_ravim('%s')" % drug['ravimi_nimetus'])
                 return redirect(reverse('success'))
             else:
                 return HttpResponseBadRequest(json.dumps({

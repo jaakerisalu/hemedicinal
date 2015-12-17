@@ -3,7 +3,14 @@ table {
 }
 
 .back {
-  margin-top: 20px;
+  margin-left: 46.5%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 45px;
 }
 
 .asteriskField {

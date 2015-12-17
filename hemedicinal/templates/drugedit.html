@@ -5,14 +5,39 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <h2 class="text-center">Ravim: {{ drug.name }}</h2>
-            <div class="col-md-3">Tootja: {{ drug.manufacturer }}</div>
-            <div class="col-md-3">Tarnija: {{ drug.supplier }}</div>
-            <div class="col-md-3">Toimeaine: {{ drug.substance }}</div>
-            <div class="col-md-3">Süsteemi lisas: {{ drug.creator.get_full_name }}</div>
-            <div class="col-md-12 text-center">
-                {% crispy form %}
-                <a href="/drug" class="btn btn-danger back">Tagasi</a>
+            <h2 class="text-center">Ravim: {{ drug.ravimi_nimetus }}</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kirjeldus</th>
+                                <th>Hind</th>
+                                <th>Mõjuaine</th>
+                                <th>Tootja</th>
+                                <th>Tarnija</th>
+                                <th>Seisund</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ drug.ravimi_kirjeldus }}</td>
+                                <td>{{ drug.ravimi_hind }} &euro;</td>
+                                <td>{{ drug.ravimi_mojuaine }}</td>
+                                <td>{{ drug.ravimi_tootja }}</td>
+                                <td>{{ drug.ravimi_tarnija }}</td>
+                                <td>{{ drug.ravimi_seisund }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% crispy form %}
+                    <a href="/drug" class="btn btn-danger back">Tagasi</a>
+                </div>
             </div>
         </div>
     </div>
