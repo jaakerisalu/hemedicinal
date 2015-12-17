@@ -27,7 +27,7 @@ class UserCreationForm(auth_forms.UserCreationForm):
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        (_('Apotechary'), {'fields': ("tootaja")}),
+        (_('Apotechary'), {'fields': ("tootaja",)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
