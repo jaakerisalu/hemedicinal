@@ -34,7 +34,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id_code = models.IntegerField('Isikukood', null=True, blank=True)
+    id_code = models.IntegerField('Isikukood', null=True, blank=True, unique=True)
     address = models.CharField('Aadress', max_length=100, null=True, blank=True)
     first_name = models.CharField('Eesnimi', max_length=50, null=True, blank=True)
     last_name = models.CharField('Perekonnanimi', max_length=50, null=True, blank=True)

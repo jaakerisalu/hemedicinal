@@ -30,6 +30,7 @@ class Manufacturer(models.Model):
 
 class Substance(models.Model):
     name = models.CharField('Mõjuaine nimi', max_length=50, unique=True)
+    atc_code = models.CharField('ATC kood', max_length=7)
     description = models.CharField('Mõjuaine kirjelus', max_length=100)
 
     def __str__(self):

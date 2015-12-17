@@ -5,10 +5,11 @@ from settings.base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '127.0.0.1',
-        'NAME': 'hemedicinal',
-        'USER': 'hemedicinal',
-        'PASSWORD': 'hemedicinal',
+        'HOST': 'apex.ttu.ee',
+        'NAME': 'apex',
+        'USER': 't135192',
+        'PASSWORD': '1kolekoll',
+        'PORT': '7301'
     }
 }
 

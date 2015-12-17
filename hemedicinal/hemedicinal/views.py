@@ -57,8 +57,6 @@ class DrugEditView(ProtectedMixin, TemplateView):
         if form_was_posted:
             if form.is_valid():
                 drug = form.save()
-                print(drug.price)
-                print(form.cleaned_data)
                 return redirect(reverse('success'))
             else:
                 return HttpResponseBadRequest(json.dumps({
